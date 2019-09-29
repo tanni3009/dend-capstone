@@ -27,15 +27,16 @@ As a second datasource, a list of participating institutions is available in JSO
 ### Scope of the capstone project 
 The end goal of this project is to provide analytics table in a star schema, to be able to analyse Erasmus mobility behaviour during 2008 to 2012. The tables should be able to answer analytics questions including
 * How many students took the opportunity for a study exchange or work placement each year?
-* What are the most popular countries to go to? Does this trend change over the years?
+* What are the most popular countries to go to?
 * What are the most popular institutions to go to?
+* How long do students stay abroad?
 
 The scope for the different steps will be defined as follows:
 1. **Explore and Assess the Data**
 
     The outcome of this step should be a unified CSV file for the five years of Erasmus mobility data. As the CSV formats for the different years are not all aligned, this step is important for pre-processing the data to be able to smoothly run ETL on it later on.
     
-    Moreover, the data exploration will give me an idea of which attributes can actually be used to answer the questions defined above and will serve as input for the data modelling afterwards.
+    Moreover, the data exploration will give me an idea of which attributes can actually be used to answer the questions defined above and will serve as input for the data modelling afterwards. A provided data catalog on the data portal will help with that.
     
     
 1. **Define the Data Model**
@@ -46,3 +47,17 @@ The scope for the different steps will be defined as follows:
 1. **Run ETL to Model the Data**
     
     The defined concept will be implemented in this step to provide the analytics table in a Postgres database.
+
+## Exploring and assessing the data
+Documentation of the steps to exploring the data, identifying data quality issues and cleaning them up can be found in *01_data_cleaning.ipynb*.
+
+The resulting CSV file for student mobility data was split into several smaller files for two reasons:
+1. to be able to upload it to GitHub (file size limit of 100MB)
+1. to transform the data file by file in the ETL pipeline later on
+
+## Defining the data model
+
+Map out the conceptual data model and explain why you chose that model
+List the steps necessary to pipeline the data into the chosen data model
+
+
