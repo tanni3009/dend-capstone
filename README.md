@@ -137,12 +137,21 @@ Some columns will be calculated based on other columns to be able to unify query
 
 
 ## Running ETL to model the data
-#TODO
-Propose how often the data should be updated and why.
+The above conceptualized data model was implemented on a locally installed Postgres database.
+The ETL pipeline was built in an IPython notebook, utilizing Python's modules pandas and SQLAlchemy to pipe the data from files into the database.
+
+As the dataset is not too large and does not change frequently (once a year), the pipeline was designed to be run once
+This will enable analyses use cases for 5 years of data and should serve the scope of this project.
+
 
 ### Choice of tools and technologies
-#TODO
-Clearly state the rationale for the choice of tools and technologies for the project.
+A **Postgres database** was chosen to be able to provide high query performance.
+With the low amount of data provided by this project, also a local installation is sufficient and there is no need to run a distributed database on a cluster.
+
+The code to execute the ETL pipeline was developed and run in IPython notebooks, 
+as this tool allows for a highly interactive style of coding, 
+let's you easily document your code in a clear format 
+and also gives you the flexibility to logically structure the code.
 
 
 ### Data quality checks
@@ -163,8 +172,20 @@ As soon as new institutions data is available, these data could be merged with t
 
 
 ### Alternative scenario
-#TODO
-Include a description of how you would approach the problem differently under the following scenarios:
-If the data was increased by 100x.
-If the pipelines were run on a daily basis by 7am.
-If the database needed to be accessed by 100+ people.
+This section aims to describe the approach of this ETL pipeline under the following scenario:
+* If the data was increased by 100x.
+* If the pipelines were run on a daily basis by 7am.
+* If the database needed to be accessed by 100+ people.
+
+As the amount of data can not easily be processed on a single machine any more, I would implement 
+the pipeline on a distributed system. The input data could be loaded to S3 buckets and then transformed
+using Spark to be able to scale the computational power.
+
+To be able to run the pipeline on a daily basis, the load needs to be implemented as a delta load to 
+make sure upserts are handled correctly.
+Moreover, a scheduling tool, such as Airflow, can be used to trigger the delta load every day.
+Airflow itself should then of course be set up on a server.
+
+For multi concurrence database reads, a database cluster should be implemented.
+We could an Amazon Redshift cluster, scaled for 100+ people to ensure all requested analytics questions are answered within a sufficient time period.
+
