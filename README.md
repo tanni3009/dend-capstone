@@ -49,7 +49,7 @@ The scope for the different steps will be defined as follows:
     The defined concept will be implemented in this step to provide the analytics table in a Postgres database.
 
 ## Exploring and assessing the data
-Durint this step, the raw data found in the folder ``raw_data`` was assessed and data quality issues were cleaned.
+During this step, the raw data found in the folder ``raw_data`` was assessed and data quality issues were cleaned.
 
 Documentation of the steps to exploring the data, identifying data quality issues and cleaning them up can be found in *01_data_cleaning.ipynb*.
 
@@ -137,23 +137,33 @@ Some columns will be calculated based on other columns to be able to unify query
 
 
 ## Running ETL to model the data
-Create the data pipelines and the data model
-Include a data dictionary
-Run data quality checks to ensure the pipeline ran as expected
-Integrity constraints on the relational database (e.g., unique key, data type, etc.)
-Unit tests for the scripts to ensure they are doing the right thing
-Source/count checks to ensure completeness
+#TODO
+Propose how often the data should be updated and why.
 
 ### Choice of tools and technologies
-
-
-## Write Up
-
-What's the goal? What queries will you want to run? How would Spark or Airflow be incorporated? Why did you choose the model you chose?
+#TODO
 Clearly state the rationale for the choice of tools and technologies for the project.
-Document the steps of the process.
-Propose how often the data should be updated and why.
-Post your write-up and final data model in a GitHub repo.
+
+
+### Data quality checks
+In the IPython notebook ``04_data_quality_checks.ipynb`` two data quality checks can be found.
+
+#### Check count of student mobility fact
+This DQ check compares the number of rows in the CSV files vs the final fact table to make sure all rows could be successfully stored in the database.
+
+#### Check integrity of host institution
+The fact table has a home_institution_code that refers to the institution_dimension. This check finds out, how many home institutions are not available in the dimension table
+
+As this data quality check fails, let me reflect on the load. 
+The institutions data is loaded from a separate file and not from the student mobility data. Therefore it happened, that some institutions were not available in the compiled list although they were used in the mobility data.
+
+What we could do to prevent this, is to build a deferred load for this dimension. By doing so, we would create a new row in the dimension table for every institution code found in the fact table although we might not have detailed data available for some codes. 
+This would mean that we would need to change the NULL constraints on the dimension table and allow NULL values for all attributes.
+As soon as new institutions data is available, these data could be merged with the dimension table to fill up the missing values.
+
+
+### Alternative scenario
+#TODO
 Include a description of how you would approach the problem differently under the following scenarios:
 If the data was increased by 100x.
 If the pipelines were run on a daily basis by 7am.
