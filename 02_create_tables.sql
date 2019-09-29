@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS fact_student_mobility (
     short_duration_reason CHAR(1),
     study_start_date CHAR(7) REFERENCES dim_date(year_month_code),
     work_start_date CHAR(7) REFERENCES dim_date(year_month_code),
-    combined_start_date CHAR(7),
+    combined_start_date CHAR(7) REFERENCES dim_date(year_month_code),
     ects_study SMALLINT,
     ects_work SMALLINT,
     ects_total SMALLINT,
