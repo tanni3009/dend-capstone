@@ -49,11 +49,15 @@ The scope for the different steps will be defined as follows:
     The defined concept will be implemented in this step to provide the analytics table in a Postgres database.
 
 ## Exploring and assessing the data
+Durint this step, the raw data found in the folder ``raw_data`` was assessed and data quality issues were cleaned.
+
 Documentation of the steps to exploring the data, identifying data quality issues and cleaning them up can be found in *01_data_cleaning.ipynb*.
 
-The resulting CSV file for student mobility data was split into several smaller files for two reasons:
+The resulting dataframe for student mobility data was split into several small CSV files for two reasons:
 1. to be able to upload it to GitHub (file size limit of 100MB)
 1. to transform the data file by file in the ETL pipeline later on
+
+The output of this step can be found in the ``cleaned_data`` subfolder.
 
 ## Defining the data model
 
@@ -130,3 +134,27 @@ The academic_year field will be calculated based on the rule that the academic y
 #### Loading the fact table
 The fact table will be filled from the student data. Some columns need to be transformed to another format but most of the data has also already been cleaned in the previous step.
 Some columns will be calculated based on other columns to be able to unify querying of different study exchange programme types.
+
+
+## Running ETL to model the data
+Create the data pipelines and the data model
+Include a data dictionary
+Run data quality checks to ensure the pipeline ran as expected
+Integrity constraints on the relational database (e.g., unique key, data type, etc.)
+Unit tests for the scripts to ensure they are doing the right thing
+Source/count checks to ensure completeness
+
+### Choice of tools and technologies
+
+
+## Write Up
+
+What's the goal? What queries will you want to run? How would Spark or Airflow be incorporated? Why did you choose the model you chose?
+Clearly state the rationale for the choice of tools and technologies for the project.
+Document the steps of the process.
+Propose how often the data should be updated and why.
+Post your write-up and final data model in a GitHub repo.
+Include a description of how you would approach the problem differently under the following scenarios:
+If the data was increased by 100x.
+If the pipelines were run on a daily basis by 7am.
+If the database needed to be accessed by 100+ people.
